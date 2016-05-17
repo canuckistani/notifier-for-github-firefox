@@ -1,7 +1,7 @@
 {
   "name": "notifier-for-github",
   "title": "Notifier for GitHub",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "Displays your GitHub notifications unread count",
   "license": "MIT",
   "homepage": "https://github.com/sindresorhus/notifier-for-github-firefox",

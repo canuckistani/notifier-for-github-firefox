@@ -15,7 +15,10 @@ sp.on('participatingPrefs', () => {
 	worker.port.emit('update-pref', participating);
 });
 
+let username = 'canuckistani';
+
 const notifUrl = 'https://github.com/notifications';
+// const notifUrl = 'https://github.com/mozilla/tofino/issues/assigned/'+username
 const updateInterval = 1000 * 60;
 
 let worker = pageWorker.Page({
@@ -74,14 +77,15 @@ worker.port.on('fetched-count', function (count) {
 
 		if (count !== '0') {
 			tbb.badge = count;
-			tbb.badgeColor = 'rgb(65, 131, 196)';
+			tbb.badgeColor = '#C32424';
 		} else {
-			tbb.badge = null;
+			tbb.badge = 0;
+			tbb.badgeColor = '#038103';
 		}
 	} else {
 		tbb.label = 'You have to be logged into GitHub';
-		tbb.badge = '?';
-		tbb.badgeColor = 'rgb(166, 41, 41)';
+		tbb.badge = '!';
+		tbb.badgeColor = '#FFA500';
 	}
 });
 
