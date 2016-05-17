@@ -5,6 +5,15 @@
   "description": "Displays your GitHub notifications unread count",
   "license": "MIT",
   "homepage": "https://github.com/sindresorhus/notifier-for-github-firefox",
-  "author": "Sindre Sorhus (http://sindresorhus) <sindresorhus@gmail.com>",
-  "id": "jid1-DMjSwVBPnk7a1Q@jetpack"
+  "author": "Sindre Sorhus (http://sindresorhus) <sindresorhus@gmail.com>, Jeff Griffiths <jeff@canuckistani.ca>",
+  "id": "github-notifications@canuckistani.ca",
+  "preferences": [
+    {
+        "description": "Do you want all notifications or just participating threads?",
+        "name": "participatingPrefs",
+        "type": "bool",
+        "value": false,
+        "title": "Restrict to participating?"
+    }
+  ]
 }

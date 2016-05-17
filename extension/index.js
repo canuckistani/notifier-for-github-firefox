@@ -5,24 +5,35 @@ const Request = require('sdk/request').Request;
 const pageWorker = require('sdk/page-worker');
 const timers = require('sdk/timers');
 const { ActionButton } = require('sdk/ui/button/action');
+const sp = require('sdk/simple-prefs');
+
+var participating = sp.prefs.participatingPrefs;
+
+sp.on('participatingPrefs', () => {
+	console.log('pref-change>', sp.prefs.participatingPrefs);
+	participating = sp.prefs.participatingPrefs;
+	worker.port.emit('update-pref', participating);
+});
 
 const notifUrl = 'https://github.com/notifications';
 const updateInterval = 1000 * 60;
+
+let worker = pageWorker.Page({
+	contentScriptFile: data.url('icon.js'),
+	contentScriptOptions: { participating: participating }
+});
 
 function update() {
 	Request({
 		url: notifUrl,
 		onComplete: function (response) {
+			console.log('completed request>', response.text);
 			worker.port.emit('render', response.text);
 		}
 		// Need to add a check if the computer is connected to the internet.
 		// Waiting on a `onError` method.
 	}).get();
 };
-
-let worker = pageWorker.Page({
-	contentScriptFile: data.url('icon.js')
-});
 
 let tbb = ActionButton({
 	id: 'notifier-for-github',
@@ -73,6 +84,8 @@ worker.port.on('fetched-count', function (count) {
 		tbb.badgeColor = 'rgb(166, 41, 41)';
 	}
 });
+
+worker.port.on('pref-updated', update);
 
 timers.setInterval(update, updateInterval);
 update();
